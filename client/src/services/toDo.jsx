@@ -22,11 +22,35 @@ const createToDo = async(token,content)=>{
         content
     }
     const res = await axios.post(`${baseURL}`,newToDo,config)
-    console.log("newTODo",res.data);
     return res.data
 }
 
+const updateToDoStatus = async(token,toDo,id)=>{
+    const userToken = `bearer ${token}`
+    const config = {
+        headers: {authorization: userToken}
+    }
+    if (toDo.status==="pending") {
+        const updatedToDo = {...toDo,status:"Done"}
+        const res = await axios.patch(`${baseURL}/${id}`,updatedToDo,config)
+        return res.data
+    } else if (toDo.status==="Done") {
+        const updatedToDo = {...toDo,status:"pending"}
+        const res = await axios.patch(`${baseURL}/${id}`,updatedToDo,config)
+        return res.data
+    }
+}
+const deleteToDo = async(token,id)=>{
+    const userToken = `bearer ${token}`
+    const config = {
+        headers: {authorization: userToken}
+    }
+    const Delete = await axios.delete(`${baseURL}/${id}`,config);
+    return Delete.data
+}
 export {
     getAllToDo,
-    createToDo
+    createToDo,
+    updateToDoStatus,
+    deleteToDo
 }

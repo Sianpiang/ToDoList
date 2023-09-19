@@ -11,7 +11,7 @@ const App = () => {
         }
     },[])
   return (
-    <div className="">
+    <div >
       <LoginForm
         userInfo={userInfo}
       />
