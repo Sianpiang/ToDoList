@@ -6,7 +6,6 @@ const getAllToDo = async(req,res)=>{
     try {
         const token = req.token;
         const decodedToken = jwt.verify(token,process.env.SECRET);
-        console.log(userId);
         if(!decodedToken){
             res.status(401).json({msg:"Invalid token"})
         }
